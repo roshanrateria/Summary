@@ -3,3 +3,4 @@ scholarly
 plotly
 gunicorn
 flask
+pandas
