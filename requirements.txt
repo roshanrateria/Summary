@@ -2,3 +2,4 @@ bibtexparser
 scholarly
 plotly
 gunicorn
+flask
