@@ -4,3 +4,4 @@ plotly
 gunicorn
 flask
 pandas
+docx
