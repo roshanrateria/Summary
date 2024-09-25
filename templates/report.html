@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Publication Report</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div id="graph1"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="graph2"></div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div id="graph3"></div>
+    </div>
+</div>
+
+<hr>
+
+<h3>Export Options</h3>
+<div class="row">
+    <div class="col-md-4">
+        <h5>Export All</h5>
+        <a href="{{ url_for('export', format='excel') }}" class="btn btn-success">Export to Excel</a>
+        <a href="{{ url_for('export', format='word') }}" class="btn btn-primary">Export to Word</a>
+    </div>
+    <div class="col-md-4">
+        <h5>Export by Faculty</h5>
+        <form method="GET" action="{{ url_for('export_name') }}">
+            <div class="form-group">
+                <label for="faculty">Select Faculty</label>
+                <select class="form-control" id="faculty" name="faculty" required>
+                    {% for name in fac %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="format">Format</label>
+                <select class="form-control" id="format" name="format">
+                    <option value="excel">Excel</option>
+                    <option value="word">Word</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Export</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h5>Export by Year</h5>
+        <form method="GET" action="{{ url_for('export_year') }}">
+            <div class="form-group">
+                <label for="start_year">Start Year</label>
+                <input type="number" class="form-control" id="start_year" name="start_year" required>
+            </div>
+            <div class="form-group">
+                <label for="end_year">End Year</label>
+                <input type="number" class="form-control" id="end_year" name="end_year" required>
+            </div>
+            <div class="form-group">
+                <label for="format">Format</label>
+                <select class="form-control" id="format" name="format">
+                    <option value="excel">Excel</option>
+                    <option value="word">Word</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Export</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    var graph1 = {{ graph1 | safe }};
+    Plotly.newPlot('graph1', graph1.data, graph1.layout);
+
+    var graph2 = {{ graph2 | safe }};
+    Plotly.newPlot('graph2', graph2.data, graph2.layout);
+
+    var graph3 = {{ graph3 | safe }};
+    Plotly.newPlot('graph3', graph3.data, graph3.layout);
+</script>
+{% endblock %}
